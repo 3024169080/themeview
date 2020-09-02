@@ -1,0 +1,23 @@
+{
+  "name": "themeview",
+  "version": "1.0.0",
+  "private": true,
+  "config": {
+    "nuxt": {
+      "host": "172.16.1.8",
+      "port": "3001"
+    }
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.12.0",
+    "nuxt": "^2.14.0",
+    "vant": "^2.10.3"
+  },
+  "devDependencies": {}
+}
