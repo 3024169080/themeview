@@ -5,9 +5,10 @@
 </template>
 
 <script type="text/ecmascript-6">
+import bus from "@/assets/js/eventBus";
 import shop from "~/api/shop";
 import ThemeDataPlant from "~/components/ThemeDataPlant";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "container",
   data() {
@@ -56,9 +57,11 @@ export default {
     });
   },
   methods: {
+    ...mapMutations(["changeDeviceType"]),
     initView() {
       this.$store.commit("screenWidth", document.body.offsetWidth);
       this.$store.commit("previewWidth", document.body.offsetWidth);
+      this.changeDeviceType(this.previewWidth < 1000 ? 1 : 2);
     },
   },
 };

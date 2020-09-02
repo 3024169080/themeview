@@ -9,6 +9,7 @@
         :key="index"
         :class="'list'+goodsList.length"
         :style="{'width':rows==1?'100%':(100/rows-2)+'%'}"
+        @click="toGoodsInfo(item)"
       >
         <div class="img">
           <img :src="(item.coverImage==''?item.productImgUrl:item.coverImage)" />
@@ -117,6 +118,17 @@ export default {
         //指定商品
         this.getProductList(1);
       }
+    },
+    toGoodsInfo(item){
+      if(!this.render){
+        return;
+      }
+      this.$router.push({
+        name:"goods-goodsInfo",
+        query:{
+          productId:item.productId
+        }
+      })
     },
     async getProductList(code) {
       //分类查

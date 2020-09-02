@@ -58,7 +58,9 @@ export default {
     init() {
       this.$nextTick(() => {
         setTimeout(() => {
-          this.$refs.Swiper.resize();
+          if (this.$refs.Swiper&&this.$refs.Swiper.resize) {
+            this.$refs.Swiper.resize();
+          }
         }, 500);
       });
     },
