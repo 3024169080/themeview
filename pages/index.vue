@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :style="[{'background':backgroundColor}]">
     <ThemeDataPlant :datas="modelList" :pageSettingData="pageSettingData" ref="ThemeDataPlant"></ThemeDataPlant>
   </div>
 </template>
@@ -18,6 +18,10 @@ export default {
   },
   computed: {
     ...mapState(["screenWidth", "previewWidth", "globalDeviceType"]),
+    backgroundColor() {
+      return this.$store.state.globleThemeData.globalColor.componentData.page_op
+        .pageColor;
+    },
   },
   watch: {
     globalDeviceType(val) {

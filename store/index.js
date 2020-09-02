@@ -7,7 +7,8 @@ const state = {
   previewWidth: "", //展示宽度
   globalDeviceType: 2, //设备模式  1手机2PC
   sessionId: "",
-  olShopInfo: {}
+  olShopInfo: {},
+  globleThemeData: {},
 };
 const createStore = () => {
   return new Vuex.Store({
