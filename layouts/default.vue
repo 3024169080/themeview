@@ -3,7 +3,16 @@
     <Nuxt />
   </div>
 </template>
-
+<script>
+export default {
+  name:"nuxt",
+  data(){
+    return {
+      
+    }
+  }
+}
+</script>
 <style>
 html {
   font-family:

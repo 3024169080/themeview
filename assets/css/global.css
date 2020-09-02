@@ -1,0 +1,151 @@
+.options_block {
+  background: #fff;
+  margin-bottom: 16px;
+}
+
+.options_block .title {
+  padding: 16px 20px 0;
+  color: var(--minor-color);
+  font-weight: bold;
+}
+
+.options_block .cont {
+  padding: 16px 20px 20px;
+}
+
+.options_block .item {
+  align-items: center;
+}
+
+.options_block .item .name {
+  margin-left: 10px;
+  font-size: 14px;
+  color: var(--minor-color);
+}
+
+.options_block .itemNoFlex .sTitle {
+  font-size: 14px;
+}
+
+.options_block .itemNoFlex .slider {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.options_block .itemNoFlex .slider .el-slider {
+  flex: 1;
+}
+
+.options_block .itemNoFlex .slider .el-slider .el-slider__bar {
+  background: var(--main-color);
+}
+
+.options_block .itemNoFlex .slider .el-slider /deep/.el-slider__button {
+  border-color: var(--main-color);
+}
+
+.options_block .itemNoFlex .slider .sliderRight {
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.model-box {
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-top: 1px solid #dfe3e8;
+  border-right: 3px solid transparent;
+}
+
+.model-box:hover {
+  transition: all 0.3s;
+  border-right-color: var(--main-color);
+}
+
+.model-box .namebox {
+  padding: 18px 15px;
+  padding-right: 44px;
+  flex: 1;
+  align-items: center;
+}
+
+.model-box .namebox i {
+  font-size: 18px;
+}
+
+.model-box .namebox p {
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.model-box .icons {
+  width: 44px;
+  justify-content: center;
+  align-items: center;
+}
+
+.addComponents {
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ededed;
+  border-right: 3px solid transparent;
+  cursor: pointer;
+}
+
+.addComponents:hover {
+  transition: all 0.3s;
+  border-right-color: var(--main-color);
+}
+
+.addComponents .namebox {
+  padding: 18px 15px;
+  padding-right: 44px;
+  flex: 1;
+  color: var(--main-color);
+  align-items: center;
+}
+
+.addComponents .namebox i {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.addComponents .namebox p {
+  font-size: 14px;
+  margin-left: 10px;
+  color: var(--main-color);
+}
+
+.comBlock .comName {
+  padding: 14px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #637381;
+}
+
+.comBlock .comMain {
+  background: #fff;
+}
+
+.comBlock .comMain .setBlock {
+  padding: 10px 20px;
+}
+
+.comBlock .comMain .setBlock .setTitle {
+  font-size: 14px;
+  color: var(--minor-color);
+}
+
+.comBlock .comMain .setBlock .setMain {
+  margin-top: 8px;
+}
+
+.comBlock .comMain .setBlock .setMain .flexItem {
+  display: flex;
+  align-items: center;
+}
+
+.comBlock .comMain .setBlock .setMain .flexItem .itemRight {
+  margin-left: 10px;
+  font-size: 14px;
+}
