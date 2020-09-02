@@ -8,6 +8,11 @@ export default {
   name:"nuxt",
   data(){
     return {
+
+    }
+  },
+  create(){
+    if(process.browser){
       
     }
   }

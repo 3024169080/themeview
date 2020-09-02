@@ -65,10 +65,7 @@ export default {
   /*
   ** Nuxt.js modules
   */
-  modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    "@nuxtjs/axios"
-  ],
+  modules: ["@nuxtjs/proxy", "@nuxtjs/axios"],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options

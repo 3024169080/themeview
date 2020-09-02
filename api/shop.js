@@ -1,4 +1,4 @@
-import { fetch } from '@/plugins/axios'
+import { fetch } from '~/plugins/axios'
 import config from '~/config'
 
 export default {
