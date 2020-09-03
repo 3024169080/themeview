@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vant from "vant";
-import { DFSImg } from "~/plugins/commFunc";
+import { DFSImg, keepIntNum, keepTwoNum } from "~/plugins/commFunc";
 import componentsList from "~/assets/js/components";
 import componentData from "~/assets/js/componentData";
 if (process.browser) {
@@ -13,6 +13,12 @@ Vue.use(Vant);
 
 //定义一个图片过滤器(双向绑定)
 Vue.filter("DFSImg", DFSImg);
+
+// 保留整数过滤器
+Vue.filter("keepIntNum", keepIntNum);
+
+// 定义价格保留两位小数过滤器
+Vue.filter("keepTwoNum", keepTwoNum);
 
 // 页面返回判断是否有历史记录
 Vue.prototype.$RouterBack = () => {

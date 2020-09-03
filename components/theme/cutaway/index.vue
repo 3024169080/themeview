@@ -39,6 +39,9 @@ export default {
   mounted() {},
   methods: {
     toPage(item) {
+      if (!this.render) {
+        return;
+      }
       if (item.links.links) {
         window.open(item.links.links);
       }

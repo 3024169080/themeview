@@ -1,3 +1,17 @@
+/*清除浮动*/
+
+.clearfix {
+  zoom: 1;
+}
+
+.clearfix:after {
+  clear: both;
+  content: '.';
+  display: block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
 .options_block {
   background: #fff;
   margin-bottom: 16px;

@@ -18,17 +18,17 @@ export default {
     ThemeDataPlant,
   },
   computed: {
-    ...mapState(["screenWidth", "previewWidth", "globalDeviceType"]),
+    // ...mapState(["screenWidth", "previewWidth", "globalDeviceType"]),
     backgroundColor() {
       return this.$store.state.globleThemeData.globalColor.componentData.page_op
         .pageColor;
     },
   },
   watch: {
-    globalDeviceType(val) {
-      this.initView();
-      bus.$emit("initComponentsView");
-    },
+    // globalDeviceType(val) {
+    //   this.initView();
+    //   bus.$emit("initComponentsView");
+    // },
   },
   async asyncData(context) {
     let asyncData = {
@@ -50,25 +50,29 @@ export default {
   },
   created() {},
   mounted() {
-    let that = this;
-    that.initView();
-    window.addEventListener("resize", function () {
-      that.initView();
-    });
+    // let that = this;
+    // that.initView();
+    // window.addEventListener("resize", function () {
+    //   that.initView();
+    // });
   },
   methods: {
-    ...mapMutations(["changeDeviceType"]),
-    initView() {
-      this.$store.commit("screenWidth", document.body.offsetWidth);
-      this.$store.commit("previewWidth", document.body.offsetWidth);
-      this.changeDeviceType(this.previewWidth < 1000 ? 1 : 2);
-    },
+    // ...mapMutations(["changeDeviceType"]),
+    // initView() {
+    //   this.$store.commit("screenWidth", document.body.offsetWidth);
+    //   this.$store.commit("previewWidth", document.body.offsetWidth);
+    //   this.changeDeviceType(this.previewWidth < 1000 ? 1 : 2);
+    // },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
+  width: 100%;
   font-size: 12px;
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 </style>

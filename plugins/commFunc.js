@@ -63,6 +63,14 @@ export function DFSImg(path, w, h, type = 0) {
     return baseImg[Math.floor(Math.random() * 100) % baseImg.length] + path;
   }
 }
+export function keepIntNum(num) {
+  num = Number(num);
+  return Math.floor(num || 0);
+}
+export function keepTwoNum(num) {
+  num = Number(num);
+  return num.toFixed(2);
+}
 
 export function isIphoneX() {
   if (window && /iphone/gi.test(window.navigator.userAgent)) {

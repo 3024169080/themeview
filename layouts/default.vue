@@ -4,31 +4,52 @@
   </div>
 </template>
 <script>
+import bus from "@/assets/js/eventBus";
+import { mapState, mapMutations } from "vuex";
 export default {
-  name:"nuxt",
-  data(){
-    return {
-
+  name: "nuxt",
+  data() {
+    return {};
+  },
+  create() {
+    if (process.browser) {
     }
   },
-  create(){
-    if(process.browser){
-      
-    }
-  }
-}
+  computed: {
+    ...mapState(["screenWidth", "previewWidth", "globalDeviceType"]),
+  },
+  watch: {
+    globalDeviceType(val) {
+      this.initView();
+      bus.$emit("initComponentsView");
+    },
+  },
+  mounted() {
+    let that = this;
+    that.initView();
+    window.addEventListener("resize", function () {
+      that.initView();
+    });
+  },
+  methods: {
+    ...mapMutations(["changeDeviceType"]),
+    initView() {
+      this.$store.commit("screenWidth", document.body.offsetWidth);
+      let previewWidth =
+        document.body.offsetWidth < 1000
+          ? document.body.offsetWidth
+          : document.body.offsetWidth - 20;
+      this.$store.commit("previewWidth", previewWidth);
+      this.changeDeviceType(this.previewWidth < 1000 ? 1 : 2);
+      bus.$emit("initComponentsView");
+    },
+  },
+};
 </script>
-<style>
+<style lang="scss">
 html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -45,32 +66,32 @@ html {
   margin: 0;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+// .button--green {
+//   display: inline-block;
+//   border-radius: 4px;
+//   border: 1px solid #3b8070;
+//   color: #3b8070;
+//   text-decoration: none;
+//   padding: 10px 30px;
+// }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+// .button--green:hover {
+//   color: #fff;
+//   background-color: #3b8070;
+// }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
+// .button--grey {
+//   display: inline-block;
+//   border-radius: 4px;
+//   border: 1px solid #35495e;
+//   color: #35495e;
+//   text-decoration: none;
+//   padding: 10px 30px;
+//   margin-left: 15px;
+// }
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
+// .button--grey:hover {
+//   color: #fff;
+//   background-color: #35495e;
+// }
 </style>

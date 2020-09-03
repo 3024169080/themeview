@@ -58,13 +58,16 @@ export default {
     init() {
       this.$nextTick(() => {
         setTimeout(() => {
-          if (this.$refs.Swiper&&this.$refs.Swiper.resize) {
+          if (this.$refs.Swiper && this.$refs.Swiper.resize) {
             this.$refs.Swiper.resize();
           }
         }, 500);
       });
     },
     toPage(item) {
+      if (!this.render) {
+        return;
+      }
       if (item.links.links) {
         window.open(item.links.links);
       }
