@@ -53,10 +53,10 @@
             </li>
           </ul>
         </div>
+        <!-- 立即购买 -->
+        <div class="pay" @click="showCode">立即购买</div>
+        <div class="productSecondName">{{goodsInfo.productSecondName}}</div>
       </div>
-      <!-- 立即购买 -->
-      <div class="pay" @click="showCode">立即购买</div>
-      <div class="productSecondName">{{goodsInfo.productSecondName}}</div>
     </div>
     <van-dialog v-model="showCodeDia" title="扫码购买">
       <div v-if="showCodeDia" class="qrCode" ref="qrCode"></div>
@@ -75,7 +75,7 @@ export default {
   name: "goodsInfo",
   data() {
     return {
-      showPage:false,
+      showPage: false,
       isChoice: true, //显示“请选择规格”
       isSingle: false, //是否为单规格商品
       isGetMixId: false, // 是否取价格
@@ -174,7 +174,7 @@ export default {
       await commodity
         .getProductGoodsSpecifications({ productId })
         .then((res) => {
-          this.showPage=true;
+          this.showPage = true;
           if (res.code == 200) {
             this.goodsGuiges = res.data;
             let isSingles = [];
@@ -547,14 +547,18 @@ export default {
       }
     }
     .info {
-      padding: 0 10px;
       .name {
+        padding: 0 10px;
         margin-top: 10px;
         font-size: 2em;
       }
       .priceItem {
+        padding: 0 10px;
         font-size: 1.6em;
       }
+    }
+    .commoditySty {
+      padding: 0 10px;
     }
     .productSecondName {
       padding: 0 10px;
