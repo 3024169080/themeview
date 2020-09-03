@@ -1,6 +1,6 @@
 <template>
   <!-- 商品详情 -->
-  <div class="goodsInfo" :class="getGlobalClass">
+  <div class="goodsInfo" :class="getGlobalClass" v-if="showPage">
     <headersMy title="商品详情" @returnClick="backTo"></headersMy>
     <div class="content">
       <!-- 轮播图 -->
@@ -23,12 +23,12 @@
         <div class="priceItem">
           <span
             class="price"
-            v-if="(goodsInfo.minDiscountPrice-0)<(goodsInfo.maxDiscountPrice-0)&&(goodsInfo.selectedPrice==''||goodsInfo.selectedPrice==null)"
+            v-if="(goodsInfo.minDiscountPrice-0)<(goodsInfo.maxDiscountPrice-0)&&(selectedPrice==''||selectedPrice==null)"
           >￥{{goodsInfo.minDiscountPrice | keepTwoNum}}-{{goodsInfo.maxDiscountPrice | keepTwoNum}}</span>
           <span
             class="price"
-            v-else-if="goodsInfo.selectedPrice!=='' && goodsInfo.selectedPrice!=null"
-          >￥{{goodsInfo.selectedPrice | keepTwoNum}}</span>
+            v-else-if="selectedPrice!=='' && selectedPrice!=null"
+          >￥{{selectedPrice | keepTwoNum}}</span>
           <span
             class="price"
             v-else-if="goodsInfo.minDiscountPrice"
@@ -54,7 +54,13 @@
           </ul>
         </div>
       </div>
+      <!-- 立即购买 -->
+      <div class="pay" @click="showCode">立即购买</div>
+      <div class="productSecondName">{{goodsInfo.productSecondName}}</div>
     </div>
+    <van-dialog v-model="showCodeDia" title="扫码购买">
+      <div v-if="showCodeDia" class="qrCode" ref="qrCode"></div>
+    </van-dialog>
   </div>
 </template>
 
@@ -64,10 +70,12 @@ import { mapState } from "vuex";
 import headersMy from "~/components/common/headersMy";
 import commodity from "~/api/commodity";
 import { DFSImg } from "~/plugins/commFunc";
+let QRCode;
 export default {
   name: "goodsInfo",
   data() {
     return {
+      showPage:false,
       isChoice: true, //显示“请选择规格”
       isSingle: false, //是否为单规格商品
       isGetMixId: false, // 是否取价格
@@ -89,6 +97,8 @@ export default {
         discountPrice: "",
       },
       allSellOut: false, //全部售罄标识
+      selectedPrice: "", //子组件选中规格商品价格
+      showCodeDia: false,
     };
   },
   components: {
@@ -111,7 +121,11 @@ export default {
       return this.globalDeviceType == 1 ? "goodsInfoMobile" : "goodsInfoPc";
     },
   },
-  created() {},
+  created() {
+    if (process.browser) {
+      QRCode = require("qrcodejs2");
+    }
+  },
   mounted() {
     this.init();
     bus.$on("initComponentsView", this.initView);
@@ -160,6 +174,7 @@ export default {
       await commodity
         .getProductGoodsSpecifications({ productId })
         .then((res) => {
+          this.showPage=true;
           if (res.code == 200) {
             this.goodsGuiges = res.data;
             let isSingles = [];
@@ -259,6 +274,7 @@ export default {
             res.data.goodsSuggestedRetailPrice;
           this.product_goods_info.singleItemActivityId =
             res.data.singleItemActivityId;
+          this.selectedPrice = this.product_goods_info.discountPrice;
         }
       });
     },
@@ -331,12 +347,7 @@ export default {
       if (noStr == this.goodsGuiges.length) {
         this.getMixId(1);
       } else {
-        this.$emit("sellingOut", {
-          sellOut: false, //售罄及无库存且不是超卖
-        });
-        // console.log("换主图")
-        // this.$set(this.product_goods_info,'goodsImgUrl',this.productUrl);
-        // console.log(this.product_goods_info.goodsImgUrl,this.productUrl,"cg532")
+        this.selectedPrice = "";
       }
     },
     checkItem() {
@@ -416,6 +427,23 @@ export default {
       }
       return true;
     },
+    // 展示h5二维码
+    showCode() {
+      this.showCodeDia = true;
+      setTimeout(() => {
+        this.creatQrCode();
+      }, 16.7);
+    },
+    creatQrCode() {
+      let qrcode = new QRCode(this.$refs.qrCode, {
+        text: `http://test-m-shop.mayi888.cn/goods/${this.$route.query.productId}?mixid=${this.$route.query.mixid}`,
+        width: 200,
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+    },
   },
 };
 </script>
@@ -426,6 +454,17 @@ export default {
   .content {
     display: flex;
     margin: 0 auto;
+    .info {
+      flex: 1;
+      .name {
+        color: var(--minor-color);
+      }
+      .priceItem {
+        margin-top: 10px;
+        font-weight: bold;
+        color: var(--main-color);
+      }
+    }
     .commoditySty {
       ul {
         height: 95%;
@@ -474,7 +513,29 @@ export default {
         }
       }
     }
+    .pay {
+      margin-top: 30px;
+      width: 100%;
+      height: 50px;
+      background: var(--minor-color);
+      color: #fff;
+      text-align: center;
+      line-height: 50px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .productSecondName {
+      font-size: 14px;
+      color: #999;
+      margin-top: 20px;
+    }
   }
+}
+.qrCode {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 .goodsInfoMobile {
   .content {
@@ -484,6 +545,19 @@ export default {
       .my-swipe {
         width: 100%;
       }
+    }
+    .info {
+      padding: 0 10px;
+      .name {
+        margin-top: 10px;
+        font-size: 2em;
+      }
+      .priceItem {
+        font-size: 1.6em;
+      }
+    }
+    .productSecondName {
+      padding: 0 10px;
     }
   }
 }
@@ -503,18 +577,14 @@ export default {
     }
     .info {
       width: 500px;
-      flex: 1;
       margin-left: 20px;
       margin-top: 20px;
       .name {
         font-size: 24px;
-        color: var(--minor-color);
       }
       .priceItem {
         font-size: 20px;
         margin-top: 10px;
-        font-weight: bold;
-        color: var(--main-color);
       }
     }
   }
